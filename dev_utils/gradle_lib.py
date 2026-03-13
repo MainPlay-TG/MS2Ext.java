@@ -1,6 +1,7 @@
 import subprocess
 from functools import cached_property
 from MainShortcuts2.ex.pathlib_ex import Path
+subprocess.run(["java", "-version"])
 
 
 class Gradle:
@@ -25,7 +26,7 @@ class Gradle:
 
   def run(self, *args, **kw):
     kw.setdefault("check", True)
-    kw["args"] = ["./gradlew", *args]
+    kw["args"] = ["bash", "gradlew", *args]
     kw["cwd"] = str(self.root)
     return subprocess.run(**kw)
 
