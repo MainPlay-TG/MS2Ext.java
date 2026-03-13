@@ -1,0 +1,8 @@
+{
+  "version_id": 1,
+  "classes": {
+    "main": "ru.mainplay_tg.ms2ext.App",
+    "file_downloader_v1": "ru.mainplay_tg.ms2ext.file_downloader.App",
+    "file_hasher_v1": "ru.mainplay_tg.ms2ext.file_hasher.App"
+  }
+}

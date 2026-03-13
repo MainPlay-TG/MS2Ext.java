@@ -1,0 +1,7 @@
+{
+  "url": "https://mainplay-tg.ru/files/http-cats.zip",
+  "path": "http-cats.zip",
+  "method": "GET",
+  "checkStatus": true,
+  "followRedirects": true
+}
