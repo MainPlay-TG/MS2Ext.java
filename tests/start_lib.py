@@ -51,4 +51,7 @@ class MS2Ext:
       p.stdin.close()
       if p.wait():
         raise subprocess.CalledProcessError(p.returncode, kw["args"], p.stdout, p.stderr)
-      return p
+      stderr = None
+      if kw.get("stderr") == subprocess.PIPE:
+        stderr = p.stderr.read()
+      return p, stderr
