@@ -73,7 +73,7 @@ public class Downloader {
     // Загрузка файла
     long downloadedSize = 0;
     try (OutputStream out = to_stdout ? System.out : Files.newOutputStream(path); InputStream in = resp.body()) {
-      byte[] buffer = new byte[1024 * 32];
+      byte[] buffer = new byte[config.bufSize];
       int bytesRead;
       while ((bytesRead = in.read(buffer)) != -1) {
         downloadedSize += bytesRead;

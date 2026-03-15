@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'ru.mainplay_tg.ms2ext'
-version = '1.0.0'
+version = '1.0.1'
 
 repositories {
   mavenCentral()
@@ -30,20 +30,6 @@ jar {
     attributes 'Main-Class': 'ru.mainplay_tg.ms2ext.App'
   }
 }
-
-// def infoFile = file('$buildDir/resources/info.json')
-// tasks.processResources {
-//   doLast  {
-//     if (infoFile.exists()) {
-//       def data = new groovy.json.JsonSlurper().parse(infoFile)
-//       data.version = project.version.toString()
-//     } else {
-//       def data = [version: project.version.toString()]
-//       infoFile.parentFile.mkdirs()
-//     }
-//     infoFile.write(new groovy.json.JsonBuilder(data).toPrettyString())
-//   }
-// }
 
 shadowJar {
   archiveClassifier.set('')

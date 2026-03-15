@@ -1,8 +1,33 @@
 {
-  "version_id": 1,
+  "version_id": 2,
   "classes": {
-    "main": "ru.mainplay_tg.ms2ext.App",
     "file_downloader_v1": "ru.mainplay_tg.ms2ext.file_downloader.App",
-    "file_hasher_v1": "ru.mainplay_tg.ms2ext.file_hasher.App"
+    "file_hasher_v1": "ru.mainplay_tg.ms2ext.file_hasher.App",
+    "file_hasher_v2": "ru.mainplay_tg.ms2ext.file_hasher.AppV2",
+    "main": "ru.mainplay_tg.ms2ext.App"
+  },
+  "config_hints": {
+    "file_downloader_v1": {
+      "bufSize": "int = 1024 * 32",
+      "checkStatus": "bool = true",
+      "followRedirects": "bool = true",
+      "headers": "dict[str, str] = {}",
+      "method": "str = 'GET'",
+      "path": "str",
+      "query": "dict[str, str] = {}",
+      "sizeLimit": "int = null",
+      "url": "str",
+      "verify": "bool = true"
+    },
+    "file_hasher_v1": {
+      "algs": "list[str]",
+      "bufSize": "int = 1024 * 1024 * 4",
+      "path": "str"
+    },
+    "file_hasher_v2": {
+      "algs": "list[str]",
+      "bufSize": "int = 1024 * 1024 * 4",
+      "paths": "list[str]"
+    }
   }
 }

@@ -1,7 +1,7 @@
 package ru.mainplay_tg.ms2ext.file_downloader;
 
-import ru.mainplay_tg.ms2ext.App.Util;
 import ru.mainplay_tg.ms2ext.file_downloader.Downloader.DownloadResult;
+import ru.mainplay_tg.ms2ext.Util;
 
 public class App {
   public static void main(String[] argv) {
@@ -34,6 +34,7 @@ public class App {
     Boolean checkStatus = true;
     Boolean followRedirects = true;
     Boolean verify = true;
+    int bufSize = 1024 * 32;
     java.util.Map<String, String> headers = new java.util.HashMap<>();
     java.util.Map<String, String> query = new java.util.HashMap<>();
     Long sizeLimit;

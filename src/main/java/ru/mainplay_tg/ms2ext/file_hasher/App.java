@@ -10,7 +10,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ru.mainplay_tg.ms2ext.App.Util;
+import ru.mainplay_tg.ms2ext.Util;
 
 public class App {
   public static void main(String[] argv) {
@@ -33,10 +33,10 @@ public class App {
     Path path = Paths.get(config.path);
     File file = path.toFile();
     if (!file.exists()) {
-      Util.exit_exc("File does not exists");
+      Util.exit_exc("File does not exist");
       return;
     }
-    if (config.algs.isEmpty()) {
+    if (config.algs == null || config.algs.isEmpty()) {
       Util.exit_exc("No algorithm is specified");
       return;
     }
@@ -49,8 +49,16 @@ public class App {
         return;
       }
     }
+    System.err.println(Util.to_json(hash_file(file, digests, config.bufSize)));
+  }
+
+  public static Map<String, String> hash_file(File file, Map<String, MessageDigest> digests, int bufSize)
+      throws Exception {
+    for (MessageDigest dig : digests.values()) {
+      dig.reset();
+    }
     try (FileInputStream in = new FileInputStream(file)) {
-      byte[] buffer = new byte[4194304];
+      byte[] buffer = new byte[bufSize];
       int bytesRead;
       while ((bytesRead = in.read(buffer)) != -1) {
         for (MessageDigest dig : digests.values()) {
@@ -64,10 +72,21 @@ public class App {
       MessageDigest md = digests.get(alg);
       result.put(alg, b64.encodeToString(md.digest()));
     }
-    System.err.println(Util.to_json(result));
+    return result;
+  }
+
+  public static Map<String, String> hash_file(Path path, Map<String, MessageDigest> digests, int bufSize)
+      throws Exception {
+    return hash_file(path.toFile(), digests, bufSize);
+  }
+
+  public static Map<String, String> hash_file(String path, Map<String, MessageDigest> digests, int bufSize)
+      throws Exception {
+    return hash_file(Paths.get(path), digests, bufSize);
   }
 
   static class Config {
+    int bufSize = 1024 * 1024 * 4;
     List<String> algs;
     String path;
 

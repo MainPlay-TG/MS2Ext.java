@@ -39,12 +39,13 @@ info_data = json5.loads(info_file.read_text())
 info_data["builded_at"] = ms.utcnow
 info_data["name"] = proj_name
 info_data["version"] = proj_version
-info_file.write_json(info_data)
+info_file.write_json(info_data, sort_keys=True)
 gradle.build()
 log.info("Build completed: %s", ms2ext.jar)
 # Release
 log.info("Preparing files for release...")
 rel_assets = {ms2ext.jar.name: ms2ext.jar}
+rel_assets["info.json"] = info_file
 rel_assets["sha256sums.txt"] = create_hash("sha256", rel_assets).encode("utf-8")
 log.info("Uploading release...")
 release = gh.create_release(
