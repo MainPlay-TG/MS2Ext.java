@@ -1,1 +1,4 @@
-[![Build and upload release](https://github.com/MainPlay-TG/MS2Ext.java/actions/workflows/build.yml/badge.svg)](https://github.com/MainPlay-TG/MS2Ext.java/actions/workflows/build.yml)
+# MS2Ext (Java)
+[![Build](https://img.shields.io/github/actions/workflow/status/MainPlay-TG/MS2Ext.java/build.yml?label=Build)](https://github.com/MainPlay-TG/MS2Ext.java/actions/workflows/build.yml)
+[![Java](https://img.shields.io/badge/Java-21%2B-orange.svg)](https://github.com/bell-sw/Liberica/releases)
+[![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2FMainPlay-TG%2FMS2Ext.java%2Freleases%2Flatest%2Fdownload%2Finfo.json&query=%24.version&label=Version) ![Date](https://img.shields.io/github/release-date/MainPlay-TG/MS2Ext.java?label=Date)](https://github.com/MainPlay-TG/MS2Ext.java/releases/latest)
