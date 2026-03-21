@@ -5,6 +5,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import ru.mainplay_tg.ms2ext.Util;
 
 public class AppV2 {
@@ -38,15 +44,33 @@ public class AppV2 {
         return;
       }
     }
-    Map<String, Map<String, String>> results = new HashMap<>();
-    for (String path : config.paths) {
-      results.put(path, App.hash_file(path, digests, config.bufSize));
+    ExecutorService executor = Executors.newFixedThreadPool(Math.min(config.maxThreads, config.paths.size()));
+    Map<String, Map<String, String>> results = new ConcurrentHashMap<>();
+    List<CompletableFuture<Void>> futures = config.paths.stream().map(path -> CompletableFuture.supplyAsync(() -> {
+      Map<String, String> hashResult;
+      try {
+        hashResult = App.hash_file(path, digests, config.bufSize);
+      } catch (Exception e) {
+        hashResult = null;
+      }
+      return Map.entry(path, hashResult);
+    }, executor).thenAccept(result -> results.put(result.getKey(), result.getValue()))).collect(Collectors.toList());
+    CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+    executor.shutdown();
+    try {
+      if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+        executor.shutdownNow();
+      }
+    } catch (InterruptedException e) {
+      executor.shutdownNow();
+      Thread.currentThread().interrupt();
     }
     System.err.println(Util.to_json(results));
   }
 
   static class Config {
     int bufSize = 1024 * 1024 * 4;
+    int maxThreads = 8;
     List<String> algs;
     List<String> paths;
   }
