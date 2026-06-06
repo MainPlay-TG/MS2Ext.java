@@ -1,6 +1,7 @@
 {
-  "version_id": 3,
+  "version_id": 4,
   "classes": {
+    "java_version_v1": "ru.mainplay_tg.ms2ext.java_version.App",
     "file_downloader_v1": "ru.mainplay_tg.ms2ext.file_downloader.App",
     "file_hasher_v1": "ru.mainplay_tg.ms2ext.file_hasher.App",
     "file_hasher_v2": "ru.mainplay_tg.ms2ext.file_hasher.AppV2",
@@ -10,6 +11,7 @@
     21
   ],
   "config_hints": {
+    "java_version_v1": {},
     "file_downloader_v1": {
       "bufSize": "int = 1024 * 32",
       "checkStatus": "bool = true",
